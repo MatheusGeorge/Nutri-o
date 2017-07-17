@@ -22,17 +22,17 @@ for(var i = 0; i < pacientes.length; i++){
 	console.log(tdAltura); //td que tem a altura
 	console.log(altura); //100*/
 
-	var pesoV = true;
-	var alturaV = true;
+	var pesoV = validaPeso(peso);
+	var alturaV = validaAltura(altura);
 
-	if(peso <= 0 || peso >= 1000){
+	if(!pesoV){
 		console.log("Peso inválido");
 		pesoV = false;
 		tdImc.textContent ="Peso inválido";
 		paciente.classList.add("paciente-invalido");
 	}
 
-	if(altura <= 0 || altura >= 3.00){
+	if(!alturaV){
 		console.log("Altura inválida");
 		alturaV = false;
 		tdImc.textContent ="Altura inválida";
@@ -40,9 +40,40 @@ for(var i = 0; i < pacientes.length; i++){
 	}
 
 	if(alturaV && pesoV){
-		var imc = peso / (altura * altura);
-		tdImc.textContent = imc.toFixed(2);
+		var imc = calculaImc(peso,altura);
+		tdImc.textContent = imc;
 	}
 }
 
-//console.log(imc);
+
+function validaPeso(peso){
+	if(peso >= 0 && peso <= 1000){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+function validaAltura(altura){
+	if(altura >= 0 && altura <= 3.0){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+function calculaImc(peso,altura){
+	var imc = 0;
+	imc = peso / (altura * altura);
+	return imc.toFixed(2);
+}
+
+/*titulo.addEventListener("click", function(){ //nomeada ou anonima, passa o nome da function ou cria no addEventListener mesmo
+	console.log("anonima");
+});
+
+function mostraMensagem(){
+	console.log("Olá eu fui clicado!");
+}*/
